@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>EnveeDisk</title>
+
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+</head>
+<body class="h-100">
+  <%= render "layouts/flash" %>
+
+  <%= yield %>
+
+  <%= javascript_pack_tag 'application' %>
+</body>
+</html>

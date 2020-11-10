@@ -1,0 +1,20 @@
+$body-bg: #efefef;
+$body-color: #333;
+
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  font-size: 14px;
+}
+
+.flash-messages {
+  position: fixed; left: calc(50% - 320px);
+  z-index: 1000;
+  width: 640px;
+}
+
+.layout-sessions {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 160px 20px 0;
+}

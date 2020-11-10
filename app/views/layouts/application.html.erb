@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>EnveeDisk</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<%= render layout: "layouts/base" do %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
-  </head>
+  <h2>application layout</h2>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+  <%= yield %>
+
+<% end %>
