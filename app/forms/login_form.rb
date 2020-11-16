@@ -8,4 +8,10 @@ class LoginForm
 
   validates :username, :password, presence: true
 
+  def submit
+    return false unless valid?
+
+    User.find_by(username: username).try(:authenticate, password)
+  end
+
 end

@@ -1,7 +1,41 @@
 <%= render layout: "layouts/base" do %>
 
-  <h2>application layout</h2>
+  <div class="h-100 d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <%= link_to "EnveeDisk", root_path, class: "navbar-brand" %>
 
-  <%= yield %>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#layout-navbar-collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="layout-navbar-collapse">
+        <div class="navbar-text ml-auto"><%= current_user.username %></div>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "退出", logout_path, method: :delete, class: "nav-link", data: { confirm: "是否退出登录" } %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="d-flex flex-fill overflow-hidden">
+      <div class="p-3 border-right bg-light overflow-auto" style="width: 200px">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+      </div>
+      <div class="p-3 flex-fill overflow-auto">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 
 <% end %>
