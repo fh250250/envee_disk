@@ -10,14 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_061801) do
+ActiveRecord::Schema.define(version: 2020_11_16_080506) do
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["depth"], name: "index_folders_on_depth"
+    t.index ["lft"], name: "index_folders_on_lft"
+    t.index ["parent_id", "name"], name: "index_folders_on_parent_id_and_name", unique: true
+    t.index ["parent_id"], name: "index_folders_on_parent_id"
+    t.index ["rgt"], name: "index_folders_on_rgt"
+    t.index ["user_id"], name: "index_folders_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
+    t.string "username", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "folders", "folders", column: "parent_id"
+  add_foreign_key "folders", "users"
 end

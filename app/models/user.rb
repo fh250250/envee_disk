@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_many :folders
+
   validates :username,
             presence: true,
             length: { in: 3..32 },
