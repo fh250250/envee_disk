@@ -1,0 +1,11 @@
+<div class="breadcrumb bg-light">
+  <% folder.self_and_ancestors.each do |f| %>
+    <% if f == folder %>
+      <span class="breadcrumb-item active">
+        <%= f.name %>
+      </span>
+    <% else %>
+      <%= link_to f.name, folder_path(f), class: "breadcrumb-item" %>
+    <% end %>
+  <% end %>
+</div>

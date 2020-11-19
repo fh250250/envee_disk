@@ -7,7 +7,7 @@ class Folder < ApplicationRecord
 
   validates :name,
             presence: true,
-            length: { in: 1..32 },
+            length: { maximum: 32 },
             uniqueness: { scope: :parent_id }
 
 end

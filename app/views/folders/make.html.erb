@@ -1,0 +1,8 @@
+<%= render "nav", folder: @folder %>
+
+<div class="card">
+  <div class="card-header">创建目录</div>
+  <div class="card-body">
+    <%= render "form", folder: @new_folder, action_url: make_folder_path(@folder) %>
+  </div>
+</div>

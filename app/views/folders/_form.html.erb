@@ -1,0 +1,20 @@
+<%= form_with model: folder, url: action_url, local: true do |f| %>
+  <% if folder.errors.any? %>
+    <div class="alert alert-danger">
+      <% folder.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <%= f.label :name, "目录名" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit "保存", class: "btn btn-primary" %>
+  </div>
+<% end %>
