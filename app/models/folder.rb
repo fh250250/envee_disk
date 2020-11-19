@@ -5,4 +5,9 @@ class Folder < ApplicationRecord
 
   belongs_to :user
 
+  validates :name,
+            presence: true,
+            length: { in: 1..32 },
+            uniqueness: { scope: :parent_id }
+
 end

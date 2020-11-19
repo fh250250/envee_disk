@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  after_create :create_root_folder
+
   has_secure_password
 
   has_many :folders
@@ -9,5 +11,11 @@ class User < ApplicationRecord
             length: { in: 3..32 },
             format: { with: /\A[A-Za-z0-9]+\z/ },
             uniqueness: true
+
+  private
+
+  def create_root_folder
+    folders.create! name: "_ROOT_"
+  end
 
 end
