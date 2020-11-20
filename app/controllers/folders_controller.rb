@@ -22,9 +22,16 @@ class FoldersController < ApplicationController
   end
 
   def move
+    load_user_folders
   end
 
   def perform_move
+    if @folder.update(params.require(:folder).permit(:parent_id))
+      redirect_to @folder, notice: "目录已移动"
+    else
+      load_user_folders
+      render :move
+    end
   end
 
   def show
@@ -66,6 +73,10 @@ class FoldersController < ApplicationController
 
   def folder_params
     params.require(:folder).permit(:name)
+  end
+
+  def load_user_folders
+    @folders = current_user.folders.order(:lft)
   end
 
 end

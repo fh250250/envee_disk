@@ -1,8 +1,5 @@
-<%= render "nav", folder: @folder %>
-
-<div class="card">
-  <div class="card-header">创建目录</div>
-  <div class="card-body">
-    <%= render "form", folder: @new_folder, action_url: make_folder_path(@folder) %>
-  </div>
-</div>
+<%= render "form",
+      title: "创建目录",
+      model: @new_folder,
+      submit_url: make_folder_path(@folder),
+      cancel_url: folder_path(@folder) %>

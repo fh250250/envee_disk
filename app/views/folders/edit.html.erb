@@ -1,8 +1,5 @@
-<%= render "nav", folder: @folder %>
-
-<div class="card">
-  <div class="card-header">修改目录</div>
-  <div class="card-body">
-    <%= render "form", folder: @folder, action_url: folder_path(@folder) %>
-  </div>
-</div>
+<%= render "form",
+      title: "修改目录",
+      model: @folder,
+      submit_url: folder_path(@folder),
+      cancel_url: folder_path(@folder) %>

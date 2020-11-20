@@ -1,0 +1,41 @@
+<%= form_with model: @folder, url: move_folder_path(@folder), method: :post, local: true do |f| %>
+  <% if @folder.errors.any? %>
+    <div class="alert alert-danger">
+      <% @folder.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="card mb-3">
+    <div class="card-header">移动目录</div>
+    <div class="card-body">
+      <% Folder.each_with_level @folders do |folder, level| %>
+        <div class="d-flex align-items-center">
+          <% level.times do %>
+            <div style="width: 30px; height: 30px"></div>
+          <% end %>
+
+          <% if folder.is_or_is_descendant_of?(@folder) %>
+            <span class="text-secondary">
+              <%= folder.name %>
+              <% if folder == @folder %>
+                <strong class="text-primary">[当前目录]</strong>
+              <% end %>
+            </span>
+          <% else %>
+            <%= f.radio_button :parent_id, folder.id, class: "mr-2" %>
+            <%= f.label "parent_id_#{folder.id}", class: "mb-0" do %>
+              <%= folder.name %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= f.submit "保存", class: "btn btn-primary mr-3" %>
+    <%= link_to "取消", @folder, class: "btn btn-secondary" %>
+  </div>
+<% end %>

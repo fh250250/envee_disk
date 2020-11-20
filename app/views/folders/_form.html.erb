@@ -1,20 +1,25 @@
-<%= form_with model: folder, url: action_url, local: true do |f| %>
-  <% if folder.errors.any? %>
+<%= form_with model: model, url: submit_url, local: true do |f| %>
+  <% if model.errors.any? %>
     <div class="alert alert-danger">
-      <% folder.errors.full_messages.each do |message| %>
+      <% model.errors.full_messages.each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>
   <% end %>
 
-  <div class="form-row">
-    <div class="form-group col-6">
-      <%= f.label :name, "目录名" %>
-      <%= f.text_field :name, class: "form-control" %>
+  <div class="card mb-3">
+    <div class="card-header"><%= title %></div>
+    <div class="card-body">
+
+      <div class="form-group">
+        <%= f.label :name, "目录名" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
     </div>
   </div>
 
-  <div>
-    <%= f.submit "保存", class: "btn btn-primary" %>
+  <div class="d-flex">
+    <%= f.submit "保存", class: "btn btn-primary mr-3" %>
+    <%= link_to "取消", cancel_url, class: "btn btn-secondary" %>
   </div>
 <% end %>

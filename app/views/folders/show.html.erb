@@ -2,13 +2,13 @@
 
 <div class="card">
   <div class="card-header d-flex align-items-center">
-    <%= link_to "创建", make_folder_path(@folder), class: "btn btn-sm btn-primary mr-auto" %>
+    <%= link_to "创建目录", make_folder_path(@folder), class: "btn btn-primary mr-auto" %>
 
     <% unless @folder.root? %>
-      <div class="btn-group btn-group-sm">
-        <%= link_to "修改", edit_folder_path(@folder), class: "btn btn-primary" %>
-        <%= link_to "移动", move_folder_path(@folder), class: "btn btn-success" %>
-        <%= link_to "删除", make_folder_path(@folder), method: :delete, class: "btn btn-danger", data: { confirm: "是否删除目录 #{@folder.name}" } %>
+      <div class="btn-group">
+        <%= link_to "修改目录", edit_folder_path(@folder), class: "btn btn-primary" %>
+        <%= link_to "移动目录", move_folder_path(@folder), class: "btn btn-success" %>
+        <%= link_to "删除目录", make_folder_path(@folder), method: :delete, class: "btn btn-danger", data: { confirm: "是否删除目录 #{@folder.name}" } %>
       </div>
     <% end %>
   </div>
