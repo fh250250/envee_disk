@@ -11,6 +11,10 @@ class Folder < ApplicationRecord
             length: { maximum: 32 },
             uniqueness: { scope: :parent_id }
 
+  def compat_name
+    root? ? "根目录" : name
+  end
+
   def can_destroy?
     leaf?
   end

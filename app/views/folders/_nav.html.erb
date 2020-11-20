@@ -2,10 +2,10 @@
   <% folder.self_and_ancestors.each do |f| %>
     <% if f == folder %>
       <span class="breadcrumb-item active">
-        <%= f.name %>
+        <%= f.compat_name %>
       </span>
     <% else %>
-      <%= link_to f.name, folder_path(f), class: "breadcrumb-item" %>
+      <%= link_to f.compat_name, folder_path(f), class: "breadcrumb-item" %>
     <% end %>
   <% end %>
 </div>

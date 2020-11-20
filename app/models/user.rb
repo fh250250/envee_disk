@@ -15,7 +15,7 @@ class User < ApplicationRecord
   private
 
   def create_root_folder
-    folders.create! name: "ROOT"
+    folders.create! name: "ROOT_#{id}"
   end
 
 end
