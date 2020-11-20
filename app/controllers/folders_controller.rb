@@ -49,6 +49,13 @@ class FoldersController < ApplicationController
   end
 
   def destroy
+    if @folder.can_destroy?
+      @folder.destroy!
+      redirect_to @folder.parent, notice: "目录已删除 #{@folder.name}"
+    else
+      flash[:error] = "当前目录非空，无法删除"
+      redirect_to @folder
+    end
   end
 
   private

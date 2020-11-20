@@ -1,7 +1,8 @@
 class Folder < ApplicationRecord
 
   acts_as_nested_set scope: :user,
-                     counter_cache: :children_count
+                     counter_cache: :children_count,
+                     dependent: :restrict_with_error
 
   belongs_to :user
 
@@ -9,5 +10,9 @@ class Folder < ApplicationRecord
             presence: true,
             length: { maximum: 32 },
             uniqueness: { scope: :parent_id }
+
+  def can_destroy?
+    leaf?
+  end
 
 end
