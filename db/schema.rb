@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_051917) do
 
   create_table "blobs", force: :cascade do |t|
     t.string "sha256", limit: 64, null: false
-    t.string "content_type"
+    t.string "mime"
     t.bigint "size", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_051917) do
   create_table "uploads", force: :cascade do |t|
     t.string "name", null: false
     t.string "sha256", limit: 64, null: false
-    t.string "content_type"
     t.bigint "size", null: false
     t.integer "part_size", null: false
     t.integer "cursor", default: 0, null: false

@@ -3,7 +3,6 @@ class CreateUploads < ActiveRecord::Migration[6.0]
     create_table :uploads do |t|
       t.string     :name,         null: false
       t.string     :sha256,       null: false, limit: 64
-      t.string     :content_type
       t.bigint     :size,         null: false
       t.integer    :part_size,    null: false
       t.integer    :cursor,       null: false, default: 0
