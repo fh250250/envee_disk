@@ -7,7 +7,12 @@
         <div class="col-4">
           <div class="custom-file">
             <input id="bs-file-input" type="file" class="custom-file-input" @change="handle_file_change">
-            <label for="bs-file-input" class="custom-file-label text-truncate" data-browse="选择文件">{{ file.name }}</label>
+            <label for="bs-file-input" class="custom-file-label text-truncate" data-browse="选择文件">{{ filename }}</label>
+          </div>
+          <div class="info">
+            <div>文件名: {{ filename }}</div>
+            <div>大小: {{ size }}</div>
+            <div>类型: {{ mime }}</div>
           </div>
         </div>
         <div class="col-8 preview">
@@ -17,7 +22,7 @@
     </div>
   </div>
   <div class="d-flex">
-    <div class="btn btn-primary mr-3" :class="{ disabled: !has_file }" @click="submit">保存</div>
+    <div class="btn btn-primary mr-3" :class="{ disabled: !filename }" @click="submit">保存</div>
     <a class="btn btn-secondary" :href="cancel_url">取消</a>
   </div>
 </div>
@@ -32,17 +37,9 @@ export default {
 
   data () {
     return {
-      file: {
-        name: null,
-        size: 0,
-        type: null
-      }
-    }
-  },
-
-  computed: {
-    has_file () {
-      return !!this.file.name
+      filename: null,
+      size: 0,
+      mime: null
     }
   },
 
@@ -51,15 +48,20 @@ export default {
       const file = ev.target.files[0]
 
       if (file) {
-        this.file.name = file.name
-        console.log(file)
+        this._file = file
+        this.filename = file.name
+        this.size = file.size
+        this.mime = file.type
       } else {
-        this.file.name = null
+        this._file = null
+        this.filename = null
+        this.size = 0
+        this.mime = null
       }
     },
 
     submit () {
-      if (!this.has_file) { return }
+      if (!this.filename) { return }
 
       console.log('submit')
     }
