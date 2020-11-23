@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  sha256: MyString
+  content_type: MyString
+  size: 
+  part_size: 1
+  cursor: 1
+
+two:
+  name: MyString
+  sha256: MyString
+  content_type: MyString
+  size: 
+  part_size: 1
+  cursor: 1

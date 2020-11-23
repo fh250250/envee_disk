@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   resources :folders, only: [:show, :edit, :update, :destroy] do
     member do
       get  "make"
-      post "make", action: :perform_make
+      post "make",   action: :perform_make
       get  "move"
-      post "move", action: :perform_move
+      post "move",   action: :perform_move
+      get  "upload"
+      post "upload", action: :perform_upload
     end
   end
 

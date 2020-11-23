@@ -2,10 +2,13 @@
 
 <div class="card">
   <div class="card-header d-flex align-items-center">
-    <%= link_to "创建目录", make_folder_path(@folder), class: "btn btn-sm btn-outline-primary mr-auto" %>
+    <div class="btn-group btn-group-sm">
+      <%= link_to "上传文件", upload_folder_path(@folder), class: "btn btn-outline-primary" %>
+      <%= link_to "创建目录", make_folder_path(@folder), class: "btn btn-outline-info" %>
+    </div>
 
     <% unless @folder.root? %>
-      <div class="btn-group btn-group-sm">
+      <div class="btn-group btn-group-sm ml-auto">
         <%= link_to "修改目录", edit_folder_path(@folder), class: "btn btn-outline-primary" %>
         <%= link_to "移动目录", move_folder_path(@folder), class: "btn btn-outline-success" %>
         <% if @folder.can_destroy? %>

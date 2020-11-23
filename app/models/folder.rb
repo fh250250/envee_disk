@@ -5,6 +5,8 @@ class Folder < ApplicationRecord
                      dependent: :restrict_with_error
 
   belongs_to :user
+  has_many :uploads
+  has_many :meta_files
 
   validates :name,
             presence: true,

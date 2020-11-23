@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_080506) do
+ActiveRecord::Schema.define(version: 2020_11_23_051917) do
+
+  create_table "blobs", force: :cascade do |t|
+    t.string "sha256", limit: 64, null: false
+    t.string "content_type", null: false
+    t.bigint "size", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sha256"], name: "index_blobs_on_sha256", unique: true
+  end
 
   create_table "folders", force: :cascade do |t|
     t.string "name", null: false
@@ -30,6 +39,31 @@ ActiveRecord::Schema.define(version: 2020_11_16_080506) do
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
+  create_table "meta_files", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "folder_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["blob_id"], name: "index_meta_files_on_blob_id"
+    t.index ["folder_id", "name"], name: "index_meta_files_on_folder_id_and_name", unique: true
+    t.index ["folder_id"], name: "index_meta_files_on_folder_id"
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "sha256", limit: 64, null: false
+    t.string "content_type", null: false
+    t.bigint "size", null: false
+    t.integer "part_size", null: false
+    t.integer "cursor", default: 0, null: false
+    t.integer "folder_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id", "sha256"], name: "index_uploads_on_folder_id_and_sha256", unique: true
+    t.index ["folder_id"], name: "index_uploads_on_folder_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
@@ -40,4 +74,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_080506) do
 
   add_foreign_key "folders", "folders", column: "parent_id"
   add_foreign_key "folders", "users"
+  add_foreign_key "meta_files", "blobs"
+  add_foreign_key "meta_files", "folders"
+  add_foreign_key "uploads", "folders"
 end

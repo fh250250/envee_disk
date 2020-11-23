@@ -34,6 +34,12 @@ class FoldersController < ApplicationController
     end
   end
 
+  def upload
+  end
+
+  def perform_upload
+  end
+
   def show
   end
 

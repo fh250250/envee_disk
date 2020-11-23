@@ -1,0 +1,13 @@
+<%= form_with url: upload_folder_path(@folder), id: "upload-form" do |f| %>
+  <div class="card mb-3">
+    <div class="card-header">上传文件</div>
+    <div class="card-body">
+      sdfsad
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= f.submit "保存", class: "btn btn-primary mr-3" %>
+    <%= link_to "取消", @folder, class: "btn btn-secondary" %>
+  </div>
+<% end %>
