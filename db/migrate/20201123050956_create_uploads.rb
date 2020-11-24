@@ -5,7 +5,7 @@ class CreateUploads < ActiveRecord::Migration[6.0]
       t.string     :sha256,       null: false, limit: 64
       t.bigint     :size,         null: false
       t.integer    :part_size,    null: false
-      t.integer    :cursor,       null: false, default: 0
+      t.integer    :next_part,    null: false, default: 0
       t.references :folder,       null: false, foreign_key: true
       t.timestamps
 

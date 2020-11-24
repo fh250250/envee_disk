@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_051917) do
     t.string "sha256", limit: 64, null: false
     t.bigint "size", null: false
     t.integer "part_size", null: false
-    t.integer "cursor", default: 0, null: false
+    t.integer "next_part", default: 0, null: false
     t.integer "folder_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

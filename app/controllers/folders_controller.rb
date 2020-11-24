@@ -38,6 +38,20 @@ class FoldersController < ApplicationController
   end
 
   def perform_upload
+    if blob = Blob.find_by(sha256: params[:sha256])
+      # TODO: 实现绑定文件
+      create_meta_file(params[:name], @folder, blob) and return
+    end
+
+    unless @upload = @folder.uploads.find_by(sha256: params[:sha256])
+      @upload = @folder.uploads.build name: params[:name],
+                                      sha256: params[:sha256],
+                                      size: params[:size],
+                                      part_size: params[:part_size]
+      @upload.save
+    end
+
+    render("uploads/show", formats: :json)
   end
 
   def show

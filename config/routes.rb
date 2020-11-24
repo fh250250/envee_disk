@@ -17,4 +17,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :uploads, only: [] do
+    member do
+      post "part"
+    end
+  end
+
 end
