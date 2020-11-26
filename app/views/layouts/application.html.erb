@@ -22,13 +22,13 @@
       <div class="p-3 border-right bg-light overflow-auto flex-shrink-0 flex-grow-0" style="width: 200px">
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
+            <%= link_to "我的文件", root_path, class: "nav-link #{"active" if request.fullpath.start_with?("/disk")}" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <%= link_to "统计信息", "#", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <%= link_to "个人中心", "#", class: "nav-link" %>
           </li>
         </ul>
       </div>
