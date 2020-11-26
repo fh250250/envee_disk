@@ -1,24 +1,45 @@
-<div class="card mb-3">
-  <div class="card-header">文件详情</div>
-  <div class="card-body">
-    <div class="row mb-2">
-      <div class="col-2">文件名</div>
-      <div class="col-10"><%= @meta_file.name %></div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-2">SHA256</div>
-      <div class="col-10"><%= @meta_file.blob.sha256 %></div>
-    </div>
-    <div class="row">
-      <div class="col-2">类型</div>
-      <div class="col-10"><%= @meta_file.blob.mime %></div>
-    </div>
-  </div>
-</div>
-
-<div class="d-flex">
-  <%= link_to "返回", @meta_file.folder, class: "btn btn-secondary mr-auto" %>
+<div class="d-flex mb-3">
+  <%= link_to "返回", @meta_file.folder, class: "btn btn-secondary mr-3" %>
+  <%= link_to "下载", download_meta_file_path(@meta_file), class: "btn btn-success mr-auto", target: "_blank" %>
   <%= link_to "修改", edit_meta_file_path(@meta_file), class: "btn btn-primary mr-3" %>
   <%= link_to "移动", move_meta_file_path(@meta_file), class: "btn btn-info mr-3" %>
   <%= link_to "删除", @meta_file, method: :delete, class: "btn btn-danger", data: { confirm: "是否删除文件 #{@meta_file.name}" } %>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">文件详情</div>
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-2">文件名</div>
+          <div class="col-10"><%= @meta_file.name %></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-2">SHA256</div>
+          <div class="col-10"><%= @meta_file.blob.sha256 %></div>
+        </div>
+        <div class="row">
+          <div class="col-2">类型</div>
+          <div class="col-10"><%= @meta_file.blob.mime %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <% if @meta_file.blob.can_preview? %>
+      <div class="card">
+        <div class="card-header">预览</div>
+        <div class="card-body">
+          <% if @meta_file.blob.is_image? %>
+            <img src="<%= preview_meta_file_path(@meta_file) %>" class="img-fluid">
+          <% elsif @meta_file.blob.is_video? %>
+            <video src="<%= preview_meta_file_path(@meta_file) %>" controls class="mw-100"></video>
+          <% elsif @meta_file.blob.is_audio? %>
+            <audio src="<%= preview_meta_file_path(@meta_file) %>" controls class="mw-100"></audio>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -43,6 +43,19 @@ class MetaFilesController < ApplicationController
     end
   end
 
+  def preview
+    send_file @meta_file.blob.path,
+              filename: @meta_file.name,
+              type: @meta_file.blob.mime,
+              disposition: "inline"
+  end
+
+  def download
+    send_file @meta_file.blob.path,
+              filename: @meta_file.name,
+              type: @meta_file.blob.mime
+  end
+
   private
 
   def set_meta_file

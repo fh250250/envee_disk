@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     member do
       get  "move"
       post "move",   action: :perform_move
+      get  "preview"
+      get  "download"
     end
   end
 
