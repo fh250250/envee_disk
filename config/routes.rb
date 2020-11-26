@@ -23,4 +23,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :meta_files, only: [:show, :edit, :update, :destroy] do
+    member do
+      get  "move"
+      post "move",   action: :perform_move
+    end
+  end
+
 end

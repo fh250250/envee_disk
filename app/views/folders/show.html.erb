@@ -17,11 +17,19 @@
       </div>
     <% end %>
   </div>
-  <div class="card-body">
+  <div class="card-body folder-content">
     <% @folder.children.each do |f| %>
-      <div>
-        <%= link_to f.name, f %>
-      </div>
+      <%= link_to f, title: f.name, class: "item border text-decoration-none" do %>
+        <i class="icon far fa-folder text-warning"></i>
+        <div class="name text-truncate text-center"><%= f.name %></div>
+      <% end %>
+    <% end %>
+
+    <% @folder.meta_files.each do |f| %>
+      <%= link_to f, title: f.name, class: "item border text-decoration-none" do %>
+        <i class="icon far fa-file text-dark"></i>
+        <div class="name text-truncate text-center"><%= f.name %></div>
+      <% end %>
     <% end %>
   </div>
 </div>

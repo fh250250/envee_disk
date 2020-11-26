@@ -18,7 +18,7 @@ class Folder < ApplicationRecord
   end
 
   def can_destroy?
-    leaf?
+    leaf? and uploads.count == 0 and meta_files.count == 0
   end
 
 end
