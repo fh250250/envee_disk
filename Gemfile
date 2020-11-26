@@ -13,6 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'awesome_nested_set', '~> 3.2'
+gem 'mimemagic', '~> 0.3.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

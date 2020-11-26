@@ -39,8 +39,13 @@ class FoldersController < ApplicationController
 
   def perform_upload
     if blob = Blob.find_by(sha256: params[:sha256])
-      # TODO: 实现绑定文件
-      create_meta_file(params[:name], @folder, blob) and return
+      @meta_file = MetaFile.create_with_name_retry(params[:name], @folder, blob)
+
+      unless @meta_file.errors.any?
+        flash[:notice] = "上传文件成功 #{@meta_file.name}"
+      end
+
+      render("meta_files/show", formats: :json) and return
     end
 
     unless @upload = @folder.uploads.find_by(sha256: params[:sha256])

@@ -21,7 +21,7 @@ setTimeout(() => {
   new Vue({
     propsData: {
       submit_url: $(ele).find('[name=submit_url]').val(),
-      cancel_url: $(ele).find('[name=cancel_url]').val()
+      back_url: $(ele).find('[name=back_url]').val()
     },
     ...require('../forms/upload_form').default
   }).$mount(ele)

@@ -6,8 +6,7 @@ else
 
   json.upload do
     json.extract! @upload, :name, :sha256, :size, :part_size, :next_part, :part_count
+    json.url part_upload_path(@upload)
   end
-
-  json.url part_upload_path(@upload)
 
 end

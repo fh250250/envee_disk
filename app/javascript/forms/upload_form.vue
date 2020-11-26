@@ -26,7 +26,7 @@
     </div>
     <div class="d-flex">
       <div class="btn btn-primary mr-3" :class="{ disabled: !filename }" @click="submit">保存</div>
-      <a class="btn btn-secondary" :href="cancel_url">取消</a>
+      <a class="btn btn-secondary" :href="back_url">取消</a>
     </div>
   </div>
 
@@ -37,6 +37,18 @@
         <div class="progress-bar progress-bar-striped progress-bar-animated"
             :style="{ width: `${hashing_progress}%`, transition: 'none' }">
           {{ hashing_progress.toFixed(2) }}%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if="state === 'UPLOADING'" class="state-uploading card w-50">
+    <div class="card-header">上传中</div>
+    <div class="card-body">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"
+            :style="{ width: `${uploading_progress}%`, transition: 'none' }">
+          {{ uploading_progress.toFixed(2) }}%
         </div>
       </div>
     </div>
@@ -77,7 +89,7 @@ const PREVIEW_TYPE = {
 export default {
   props: {
     submit_url: { type: String, required: true },
-    cancel_url: { type: String, required: true }
+    back_url: { type: String, required: true }
   },
 
   data () {
@@ -89,6 +101,8 @@ export default {
       preview_url: null,
 
       hashing_progress: 0,
+
+      uploading_progress: 0,
 
       error_messages: []
     }
@@ -147,7 +161,50 @@ export default {
         return
       }
 
-      await this.create_upload(sha256)
+      let upload_info = null
+      try {
+        const res = await this.create_upload(sha256)
+
+        if (res.errors) {
+          this.change_to_error(...res.errors)
+          return
+        }
+
+        if (res.meta_file) {
+          location.href = this.back_url
+          return
+        }
+
+        upload_info = res.upload
+      } catch (e) {
+        console.error(e)
+        this.change_to_error('创建上传任务失败', e.message)
+        return
+      }
+
+      try {
+        while (upload_info.next_part < upload_info.part_count) {
+          const res = await this.upload_part(upload_info)
+
+          if (res.errors) {
+            this.change_to_error(...res.errors)
+            return
+          }
+
+          if (res.meta_file) {
+            location.href = this.back_url
+            return
+          }
+
+          upload_info = res.upload
+        }
+      } catch (e) {
+        console.error(e)
+        this.change_to_error('上传分块失败', e.message)
+        return
+      }
+
+      location.href = this.back_url
     },
 
     async hashing_file () {
@@ -167,11 +224,26 @@ export default {
         part_size: PART_SIZE
       }
 
-      const res = await axios.post(this.submit_url, req_data, {
+      const { data } = await axios.post(this.submit_url, req_data, {
         headers: { 'X-CSRF-TOKEN': csrf_token() }
       })
 
-      console.log(res.data)
+      return data
+    },
+
+    async upload_part (upload_info) {
+      const form_data = new FormData()
+      const start = upload_info.next_part * upload_info.part_size
+      const end = (start + upload_info.part_size) > upload_info.size ? upload_info.size : start + upload_info.part_size
+      const part = this._file.slice(start, end)
+
+      form_data.append('part', part)
+
+      const { data } = await axios.post(upload_info.url, form_data, {
+        headers: { 'X-CSRF-TOKEN': csrf_token() }
+      })
+
+      return data
     },
 
     change_to_error (...messages) {

@@ -1,0 +1,12 @@
+default: &default
+  blobs_path: <%= "#{Rails.root}/disk/blobs" %>
+  parts_path: <%= "#{Rails.root}/disk/parts" %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

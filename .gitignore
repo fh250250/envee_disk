@@ -36,3 +36,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# 存储目录
+/disk
