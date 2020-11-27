@@ -16,6 +16,10 @@
           <div class="col-10"><%= @meta_file.name %></div>
         </div>
         <div class="row mb-2">
+          <div class="col-2">大小</div>
+          <div class="col-10"><%= @meta_file.blob.size.to_s :human_size %></div>
+        </div>
+        <div class="row mb-2">
           <div class="col-2">SHA256</div>
           <div class="col-10"><%= @meta_file.blob.sha256 %></div>
         </div>

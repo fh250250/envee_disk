@@ -161,6 +161,8 @@ export default {
         return
       }
 
+      this.state = STATE.UPLOADING
+      this.uploading_progress = 0
       let upload_info = null
       try {
         const res = await this.create_upload(sha256)
@@ -240,7 +242,10 @@ export default {
       form_data.append('part', part)
 
       const { data } = await axios.post(upload_info.url, form_data, {
-        headers: { 'X-CSRF-TOKEN': csrf_token() }
+        headers: { 'X-CSRF-TOKEN': csrf_token() },
+        onUploadProgress: ev => {
+          this.uploading_progress = Math.floor((start + ev.loaded) / upload_info.size * 100)
+        }
       })
 
       return data
